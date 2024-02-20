@@ -2,21 +2,22 @@
 
 namespace App\Filament\Admin\Pages\Tenancy;
 
-use App\Models\Team;
+use App\Models\Branch;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Filament\Pages\Tenancy\RegisterTenant;
+use Filament\Pages\Tenancy\EditTenantProfile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class RegisterTeam extends RegisterTenant
+
+class EditBranchProfile extends EditTenantProfile
 {
     public static function getLabel(): string
     {
-        return 'Register Branch';
+        return 'Branch profile';
     }
 
     public function form(Form $form): Form
@@ -24,9 +25,9 @@ class RegisterTeam extends RegisterTenant
         return $form
             ->schema([
                 TextInput::make('name')
-                    ->required()
-                    ->unique(table: Team::class, column: 'name')
                     ->live()
+                    ->required()
+                    ->unique(table: Branch::class, column: 'name')
                     ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
                         if (($get('slug') ?? '') !== Str::slug($old)) {
                             return;
@@ -35,18 +36,9 @@ class RegisterTeam extends RegisterTenant
                         $set('slug', Str::slug($state));
                     }),
 
-                Hidden::make('slug')
-                    ->unique(table: Team::class, column: 'slug')
+                    Hidden::make('slug')
+                    ->unique(table: Branch::class, column: 'slug')
                     ->required()
-            ]);
-    }
-
-    protected function handleRegistration(array $data): Team
-    {
-        $team = Team::create($data);
-
-        $team->users()->attach(auth()->user());
-
-        return $team;
+                ]);
     }
 }

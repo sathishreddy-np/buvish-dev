@@ -2,9 +2,9 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Admin\Pages\Tenancy\EditTeamProfile;
-use App\Filament\Admin\Pages\Tenancy\RegisterTeam;
-use App\Models\Team;
+use App\Filament\Admin\Pages\Tenancy\EditBranchProfile;
+use App\Filament\Admin\Pages\Tenancy\RegisterBranch;
+use App\Models\Branch;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -59,10 +59,10 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->tenant(Team::class,'slug')
+            ->tenant(Branch::class,'slug')
             ->tenantRoutePrefix('branch')
-            ->tenantRegistration(RegisterTeam::class)
-            ->tenantProfile(EditTeamProfile::class)
+            ->tenantRegistration(RegisterBranch::class)
+            ->tenantProfile(EditBranchProfile::class)
             ->tenantMenu()
             ->tenantMenuItems([
                 'profile' => MenuItem::make()->label('Edit branch profile'),
