@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Pages\Tenancy;
 
 use App\Models\Branch;
+use App\Models\Company;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -43,6 +44,9 @@ class RegisterBranch extends RegisterTenant
 
     protected function handleRegistration(array $data): Branch
     {
+        $company_id = Company::create(['name' => 'Main Branch'])->id;
+        $data['company_id'] = $company_id;
+
         $branch = Branch::create($data);
 
         $branch->users()->attach(auth()->user());

@@ -10,6 +10,7 @@ class Company extends Model
 {
     use HasFactory;
 
+
     public function branches(): HasMany
     {
         return $this->hasMany(Branch::class);
