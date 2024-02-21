@@ -44,8 +44,7 @@ class RegisterBranch extends RegisterTenant
 
     protected function handleRegistration(array $data): Branch
     {
-        $company_id = Company::create(['name' => 'Main Branch'])->id;
-        $data['company_id'] = $company_id;
+        $data['company_id'] = auth()->user()->company_id;
 
         $branch = Branch::create($data);
 
