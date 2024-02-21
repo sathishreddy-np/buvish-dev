@@ -11,8 +11,14 @@ class Company extends Model
     use HasFactory;
 
 
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function branches(): HasMany
     {
         return $this->hasMany(Branch::class);
     }
+
 }
