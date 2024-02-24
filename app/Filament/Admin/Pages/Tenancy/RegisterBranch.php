@@ -25,18 +25,6 @@ class RegisterBranch extends RegisterTenant
                 TextInput::make('name')
                     ->required()
                     ->unique(table: Branch::class, column: 'name')
-                    ->live()
-                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
-                        if (($get('slug') ?? '') !== Str::slug($old)) {
-                            return;
-                        }
-
-                        $set('slug', Str::slug($state));
-                    }),
-
-                Hidden::make('slug')
-                    ->unique(table: Branch::class, column: 'slug')
-                    ->required(),
             ]);
     }
 

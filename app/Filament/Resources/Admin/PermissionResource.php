@@ -25,9 +25,8 @@ class PermissionResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('guard_name')
+                Forms\Components\Hidden::make('guard_name')
                     ->required()
-                    ->maxLength(255)
                     ->default('web'),
             ]);
     }

@@ -11,6 +11,8 @@ use Filament\Tables\Actions\AttachAction;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Auth;
 
+use function Laravel\Prompts\multiselect;
+
 class UsersRelationManager extends RelationManager
 {
     protected static string $relationship = 'users';

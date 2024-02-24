@@ -2,37 +2,38 @@
 
 namespace App\Filament\Resources\Admin;
 
-use App\Filament\Resources\Admin\RoleResource\Pages;
-use App\Filament\Resources\Admin\RoleResource\RelationManagers\PermissionsRelationManager;
-use App\Filament\Resources\Admin\RoleResource\RelationManagers\UsersRelationManager;
-use App\Models\Role;
+use App\Filament\Resources\Admin\BranchResource\Pages;
+use App\Filament\Resources\Admin\BranchResource\RelationManagers;
+use App\Models\Branch;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
-class RoleResource extends Resource
+class BranchResource extends Resource
 {
     protected static bool $isScopedToTenant = false;
 
-    protected static ?string $model = Role::class;
+    protected static ?string $model = Branch::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
+        $user_company_id = Auth::user()->company_id;
         return $form
             ->schema([
+                Forms\Components\Hidden::make('company_id')
+                    ->default($user_company_id)
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('permissions')
-                    ->relationship('permissions', 'name')
-                    ->multiple()
-                    ->preload()
-                    ->required()
-                    ->hiddenon('edit'),
+                    ->maxLength(255)
+                    ->unique(table: Branch::class, column: 'name'),
 
             ]);
     }
@@ -41,6 +42,9 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('company.name')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -69,18 +73,17 @@ class RoleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            UsersRelationManager::class,
-            PermissionsRelationManager::class,
+            //
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListRoles::route('/'),
-            'create' => Pages\CreateRole::route('/create'),
-            'view' => Pages\ViewRole::route('/{record}'),
-            'edit' => Pages\EditRole::route('/{record}/edit'),
+            'index' => Pages\ListBranches::route('/'),
+            'create' => Pages\CreateBranch::route('/create'),
+            'view' => Pages\ViewBranch::route('/{record}'),
+            'edit' => Pages\EditBranch::route('/{record}/edit'),
         ];
     }
 }

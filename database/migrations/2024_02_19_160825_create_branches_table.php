@@ -15,8 +15,7 @@ return new class extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
-            $table->string('name')->unique();
-            $table->string('slug')->unique();
+            $table->string('name');
             $table->timestamps();
         });
     }

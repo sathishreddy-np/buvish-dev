@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -11,6 +12,16 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $models = ['Role', 'Permission', 'User', 'Company', 'Branch'];
+        $permissions = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
+        foreach ($models as $model) {
+            foreach ($permissions as $permission) {
+                $record = [
+                    'name' => "$model::$permission",
+                    'guard_name' => 'web'
+                ];
+                Permission::create($record);
+            }
+        }
     }
 }
