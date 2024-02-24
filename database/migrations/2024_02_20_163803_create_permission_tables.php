@@ -41,7 +41,7 @@ return new class extends Migration
                 $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable();
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
             }
-            $table->foreignIdFor(Company::class);
+            $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete();
             $table->string('name');       // For MySQL 8.0 use string('name', 125);
             $table->string('guard_name')->default('web'); // For MySQL 8.0 use string('guard_name', 125);
             $table->timestamps();
@@ -77,7 +77,7 @@ return new class extends Migration
         });
 
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $pivotRole, $teams) {
-            $table->foreignIdFor(Branch::class);
+            $table->foreignIdFor(Branch::class)->constrained()->cascadeOnDelete();
             $table->unsignedBigInteger($pivotRole);
             $table->string('model_type');
             $table->unsignedBigInteger($columnNames['model_morph_key']);
