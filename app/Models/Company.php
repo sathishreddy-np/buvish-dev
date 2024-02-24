@@ -10,7 +10,6 @@ class Company extends Model
 {
     use HasFactory;
 
-
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
@@ -20,5 +19,4 @@ class Company extends Model
     {
         return $this->hasMany(Branch::class);
     }
-
 }

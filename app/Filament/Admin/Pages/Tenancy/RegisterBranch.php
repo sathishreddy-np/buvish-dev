@@ -3,14 +3,12 @@
 namespace App\Filament\Admin\Pages\Tenancy;
 
 use App\Models\Branch;
-use App\Models\Company;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Pages\Tenancy\RegisterTenant;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class RegisterBranch extends RegisterTenant
@@ -38,7 +36,7 @@ class RegisterBranch extends RegisterTenant
 
                 Hidden::make('slug')
                     ->unique(table: Branch::class, column: 'slug')
-                    ->required()
+                    ->required(),
             ]);
     }
 

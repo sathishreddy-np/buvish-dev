@@ -6,7 +6,6 @@ use App\Models\Role;
 
 class RoleObserver
 {
-
     /**
      * Handle the Role "creating" event.
      */

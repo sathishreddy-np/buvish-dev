@@ -59,7 +59,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->tenant(Branch::class,'slug')
+            ->tenant(Branch::class, 'slug')
             ->tenantRoutePrefix('branch')
             ->tenantRegistration(RegisterBranch::class)
             ->tenantProfile(EditBranchProfile::class)

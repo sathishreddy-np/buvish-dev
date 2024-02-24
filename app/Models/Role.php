@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Observers\RoleObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Models\Role as SpatieRole;
@@ -15,27 +14,25 @@ class Role extends SpatieRole
 {
     use HasFactory;
 
-    protected $table = "roles";
+    protected $table = 'roles';
 
-    public function company() :BelongsTo
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function users() :BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class,'model_has_roles','role_id','model_id')->withPivot('branch_id','model_type');
+        return $this->belongsToMany(User::class, 'model_has_roles', 'role_id', 'model_id')->withPivot('branch_id', 'model_type');
     }
 
     public function permissions(): BelongsToMany
     {
-        return $this->belongsToMany(Permission::class,'role_has_permissions');
+        return $this->belongsToMany(Permission::class, 'role_has_permissions');
     }
 
     public function branches(): BelongsToMany
     {
-        return $this->belongsToMany(Branch::class,'model_has_roles','role_id','branch_id')->withPivot('model_id','model_type');
+        return $this->belongsToMany(Branch::class, 'model_has_roles', 'role_id', 'branch_id')->withPivot('model_id', 'model_type');
     }
-
 }
-

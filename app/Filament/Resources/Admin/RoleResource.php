@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Admin;
 
 use App\Filament\Resources\Admin\RoleResource\Pages;
-use App\Filament\Resources\Admin\RoleResource\RelationManagers;
 use App\Filament\Resources\Admin\RoleResource\RelationManagers\PermissionsRelationManager;
 use App\Filament\Resources\Admin\RoleResource\RelationManagers\UsersRelationManager;
 use App\Models\Role;
@@ -12,8 +11,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RoleResource extends Resource
 {
@@ -66,7 +63,7 @@ class RoleResource extends Resource
     {
         return [
             UsersRelationManager::class,
-            PermissionsRelationManager::class
+            PermissionsRelationManager::class,
         ];
     }
 
