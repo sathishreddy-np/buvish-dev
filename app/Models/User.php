@@ -83,6 +83,6 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class,'model_has_roles','model_id','role_id')->withPivot('branch_id');
+        return $this->belongsToMany(Role::class,'model_has_roles','model_id','role_id')->withPivot('branch_id','model_type');
     }
 }

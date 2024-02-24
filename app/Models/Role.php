@@ -24,12 +24,17 @@ class Role extends SpatieRole
 
     public function users() :BelongsToMany
     {
-        return $this->belongsToMany(User::class,'model_has_roles','role_id','model_id')->withPivot('branch_id');
+        return $this->belongsToMany(User::class,'model_has_roles','role_id','model_id')->withPivot('branch_id','model_type');
     }
 
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class,'role_has_permissions');
+    }
+
+    public function branches(): BelongsToMany
+    {
+        return $this->belongsToMany(Branch::class,'model_has_roles','role_id','branch_id')->withPivot('model_id','model_type');
     }
 
 }
