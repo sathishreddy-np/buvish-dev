@@ -21,11 +21,6 @@ class Role extends SpatieRole
         return $this->belongsTo(Company::class);
     }
 
-    public function users(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'model_has_roles', 'role_id', 'model_id')->withPivot('branch_id', 'model_type');
-    }
-
     public function permissions(): BelongsToMany
     {
         return $this->belongsToMany(Permission::class, 'role_has_permissions');

@@ -46,8 +46,16 @@ class UserResource extends Resource
                     ->multiple()
                     ->required(),
 
-
-
+                Repeater::make('roleUsers')
+                    ->relationship()
+                    ->schema([
+                        Forms\Components\Select::make('role_id')
+                        ->relationship('role', 'name')
+                        ->required(),
+                        Forms\Components\Select::make('model_id')
+                        ->relationship('user', 'name')
+                        ->required(),
+                    ])
             ]);
     }
 

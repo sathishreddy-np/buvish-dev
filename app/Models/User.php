@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -81,14 +82,8 @@ class User extends Authenticatable implements FilamentUser, HasTenants
         return $this->belongsTo(Company::class);
     }
 
-    public function roles(): BelongsToMany
+    public function roleUsers(): HasMany
     {
-        return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id')->withPivot('branch_id', 'model_type');
+        return $this->hasMany(RoleUser::class,'role_id','model_id');
     }
-
-    public function rolesBranch(): BelongsToMany
-    {
-        return $this->belongsToMany(Branch::class, 'model_has_roles', 'model_id', 'branch_id')->withPivot('role_id', 'model_type');
-    }
-
 }
