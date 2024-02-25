@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Admin;
 use App\Filament\Resources\Admin\UserResource\Pages;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -39,10 +40,13 @@ class UserResource extends Resource
                     ->password()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('roles')
-                    ->relationship('roles','name')
+
+                Forms\Components\Select::make('Branches')
+                    ->relationship('branches', 'name')
                     ->multiple()
                     ->required(),
+
+
 
             ]);
     }

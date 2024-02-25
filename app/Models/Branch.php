@@ -20,4 +20,9 @@ class Branch extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function branchRoles(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'model_has_roles', 'branch_id', 'model_id')->withPivot('role_id', 'model_type');
+    }
 }
