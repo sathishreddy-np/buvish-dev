@@ -49,6 +49,9 @@ class UserResource extends Resource
                 Repeater::make('roleUsers')
                     ->relationship()
                     ->schema([
+                        Forms\Components\Select::make('branch_id')
+                        ->relationship('branch', 'name')
+                        ->required(),
                         Forms\Components\Select::make('role_id')
                         ->relationship('role', 'name')
                         ->required(),

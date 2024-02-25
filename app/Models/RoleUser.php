@@ -19,4 +19,10 @@ class RoleUser extends Pivot
     {
         return $this->belongsTo(User::class);
     }
+
+    public function branch():BelongsTo
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
 }

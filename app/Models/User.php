@@ -86,4 +86,5 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     {
         return $this->hasMany(RoleUser::class,'role_id','model_id');
     }
+
 }
