@@ -84,7 +84,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function roleUsers(): HasMany
     {
-        return $this->hasMany(RoleUser::class,'role_id','model_id');
+        return $this->hasMany(RoleUser::class,'id','model_id');
     }
 
 }

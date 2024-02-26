@@ -53,7 +53,7 @@ class UserResource extends Resource
                         ->relationship('branch', 'name')
                         ->required(),
                         Forms\Components\Select::make('role_id')
-                        ->relationship('role', 'name')
+                        ->options([1=>"Admin"])
                         ->required(),
                         Forms\Components\Select::make('model_id')
                         ->relationship('user', 'name')

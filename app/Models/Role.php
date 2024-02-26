@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 #[ObservedBy([RoleObserver::class])]
@@ -30,4 +31,10 @@ class Role extends SpatieRole
     {
         return $this->belongsToMany(Branch::class, 'model_has_roles', 'role_id', 'branch_id')->withPivot('model_id', 'model_type');
     }
+
+    public function roleUsers(): HasMany
+    {
+        return $this->hasMany(RoleUser::class,'id','role_id');
+    }
+
 }
