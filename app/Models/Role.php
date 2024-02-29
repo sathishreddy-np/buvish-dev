@@ -32,9 +32,5 @@ class Role extends SpatieRole
         return $this->belongsToMany(Branch::class, 'model_has_roles', 'role_id', 'branch_id')->withPivot('model_id', 'model_type');
     }
 
-    public function roleUsers(): HasMany
-    {
-        return $this->hasMany(RoleUser::class,'id','role_id');
-    }
 
 }
