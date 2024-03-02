@@ -29,4 +29,12 @@ class Branch extends Model
         return $this->hasMany(Activity::class);
     }
 
+    public function slots() : HasMany {
+        return $this->hasMany(Slot::class);
+    }
+
+    public function restrictions() : HasMany {
+        return $this->hasMany(Restriction::class);
+    }
+
 }
