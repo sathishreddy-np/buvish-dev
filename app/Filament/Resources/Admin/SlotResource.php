@@ -2,10 +2,13 @@
 
 namespace App\Filament\Resources\Admin;
 
+use App\Enums\Day;
 use App\Filament\Resources\Admin\SlotResource\Pages;
 use App\Filament\Resources\Admin\SlotResource\RelationManagers;
+use App\Filament\Resources\Admin\SlotResource\RelationManagers\RestrictionsRelationManager;
 use App\Models\Slot;
 use Filament\Forms;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -26,16 +29,39 @@ class SlotResource extends Resource
                 Forms\Components\Select::make('branch_id')
                     ->relationship('branch', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('day')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('starts_at')
+                Forms\Components\Select::make('day')
+                    ->options(Day::class)
                     ->required(),
-                Forms\Components\TextInput::make('ends_at')
+                Forms\Components\TimePicker::make('starts_at')
+                    ->required(),
+                Forms\Components\TimePicker::make('ends_at')
                     ->required(),
                 Forms\Components\TextInput::make('no_of_slots')
                     ->required()
                     ->numeric(),
+                Repeater::make('restrictions')
+                    ->schema([
+                        Forms\Components\Select::make('branch_id')
+                            ->relationship('branch', 'name')
+                            ->required(),
+
+                        Forms\Components\TextInput::make('gender')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('age_from')
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('age_to')
+                            ->required()
+                            ->numeric(),
+                        Forms\Components\TextInput::make('currency')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('price')
+                            ->required()
+                            ->numeric()
+                            ->prefix('$'),
+                    ])
             ]);
     }
 
@@ -79,7 +105,7 @@ class SlotResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RestrictionsRelationManager::class
         ];
     }
 
