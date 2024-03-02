@@ -15,12 +15,14 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        \App\Models\User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('12345678')
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Admin',
+        //     'email' => 'admin@example.com',
+        //     'password' => Hash::make('12345678')
+        // ]);
 
+        $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
+        $this->call(ActivitySeeder::class);
     }
 }

@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use App\Observers\BranchObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[ObservedBy([BranchObserver::class])]
 class Branch extends Model
 {
     use HasFactory;
@@ -21,8 +25,8 @@ class Branch extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function branchRoles(): BelongsToMany
-    {
-        return $this->belongsToMany(User::class, 'model_has_roles', 'branch_id', 'model_id')->withPivot('role_id', 'model_type');
+    public function activities() : HasMany {
+        return $this->hasMany(Activity::class);
     }
+
 }
