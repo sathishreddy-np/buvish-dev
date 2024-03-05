@@ -11,7 +11,6 @@ class RestrictionObserver
      */
     public function created(Restriction $restriction): void
     {
-        //
     }
 
     /**

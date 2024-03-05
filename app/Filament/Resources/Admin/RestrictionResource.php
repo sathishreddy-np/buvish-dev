@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class RestrictionResource extends Resource
 {
+    protected static bool $isScopedToTenant = false;
+    protected static bool $shouldRegisterNavigation = false;
     protected static ?string $model = Restriction::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -22,30 +24,7 @@ class RestrictionResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('branch_id')
-                    ->relationship('branch', 'name')
-                    ->required(),
-                Forms\Components\Select::make('slot_id')
-                    ->relationship('slot', 'id')
-                    ->required(),
-                Forms\Components\TextInput::make('gender')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('age_from')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('age_to')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('currency')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('price')
-                    ->required()
-                    ->numeric()
-                    ->prefix('$'),
-            ]);
+            ->schema(Restriction::getForm());
     }
 
     public static function table(Table $table): Table

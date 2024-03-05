@@ -6,6 +6,7 @@ use App\Enums\Day;
 use App\Filament\Resources\Admin\SlotResource\Pages;
 use App\Filament\Resources\Admin\SlotResource\RelationManagers;
 use App\Filament\Resources\Admin\SlotResource\RelationManagers\RestrictionsRelationManager;
+use App\Models\Restriction;
 use App\Models\Slot;
 use Filament\Forms;
 use Filament\Forms\Components\Repeater;
@@ -26,9 +27,6 @@ class SlotResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('branch_id')
-                    ->relationship('branch', 'name')
-                    ->required(),
                 Forms\Components\Select::make('day')
                     ->options(Day::class)
                     ->required(),
@@ -40,28 +38,9 @@ class SlotResource extends Resource
                     ->required()
                     ->numeric(),
                 Repeater::make('restrictions')
-                    ->schema([
-                        Forms\Components\Select::make('branch_id')
-                            ->relationship('branch', 'name')
-                            ->required(),
-
-                        Forms\Components\TextInput::make('gender')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('age_from')
-                            ->required()
-                            ->numeric(),
-                        Forms\Components\TextInput::make('age_to')
-                            ->required()
-                            ->numeric(),
-                        Forms\Components\TextInput::make('currency')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\TextInput::make('price')
-                            ->required()
-                            ->numeric()
-                            ->prefix('$'),
-                    ])
+                    ->relationship('restrictions')
+                    ->schema(Restriction::getForm())
+                    ->columnSpanFull()
             ]);
     }
 

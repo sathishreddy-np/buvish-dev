@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Admin\SlotResource\RelationManagers;
 
+use App\Models\Restriction;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -17,11 +18,7 @@ class RestrictionsRelationManager extends RelationManager
     public function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('gender')
-                    ->required()
-                    ->maxLength(255),
-            ]);
+            ->schema(Restriction::getForm($this->getOwnerRecord()->id));
     }
 
     public function table(Table $table): Table
