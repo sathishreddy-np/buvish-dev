@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Branch::class);
             $table->foreignIdFor(Activity::class);
             $table->string('day');
             $table->time('starts_at');

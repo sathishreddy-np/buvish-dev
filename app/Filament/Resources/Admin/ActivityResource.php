@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Admin;
 
 use App\Filament\Resources\Admin\ActivityResource\Pages;
 use App\Filament\Resources\Admin\ActivityResource\RelationManagers;
+use App\Filament\Resources\Admin\ActivityResource\RelationManagers\SlotsRelationManager;
 use App\Models\Activity;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -22,14 +23,7 @@ class ActivityResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('branch_id')
-                    ->relationship('branch', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-            ]);
+            ->schema(Activity::getForm());
     }
 
     public static function table(Table $table): Table
@@ -67,7 +61,7 @@ class ActivityResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            SlotsRelationManager::class
         ];
     }
 

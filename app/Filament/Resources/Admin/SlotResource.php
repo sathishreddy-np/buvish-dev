@@ -19,6 +19,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SlotResource extends Resource
 {
+    protected static bool $isScopedToTenant = false;
+
+    protected static bool $shouldRegisterNavigation = false;
+
     protected static ?string $model = Slot::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -26,22 +30,7 @@ class SlotResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\Select::make('day')
-                    ->options(Day::class)
-                    ->required(),
-                Forms\Components\TimePicker::make('starts_at')
-                    ->required(),
-                Forms\Components\TimePicker::make('ends_at')
-                    ->required(),
-                Forms\Components\TextInput::make('no_of_slots')
-                    ->required()
-                    ->numeric(),
-                Repeater::make('restrictions')
-                    ->relationship('restrictions')
-                    ->schema(Restriction::getForm())
-                    ->columnSpanFull()
-            ]);
+            ->schema(Slot::getForm());
     }
 
     public static function table(Table $table): Table

@@ -16,7 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class RestrictionResource extends Resource
 {
     protected static bool $isScopedToTenant = false;
+
     protected static bool $shouldRegisterNavigation = false;
+
     protected static ?string $model = Restriction::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

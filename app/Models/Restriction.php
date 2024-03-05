@@ -21,11 +21,6 @@ class Restriction extends Model
         return $this->belongsTo(Slot::class);
     }
 
-    public function branch(): BelongsTo
-    {
-        return $this->belongsTo(Branch::class);
-    }
-
     public static function getForm($slot_id = NULL): array
     {
         return [
@@ -33,8 +28,8 @@ class Restriction extends Model
                 ->hidden(function () use ($slot_id) {
                     return $slot_id != NULL;
                 })
+                ->hiddenOn(['create','edit'])
                 ->relationship('slot', 'id')
-
                 ->required(),
             TextInput::make('gender')
                 ->required()

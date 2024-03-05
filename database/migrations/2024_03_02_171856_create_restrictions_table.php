@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('restrictions', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Branch::class);
             $table->foreignIdFor(Slot::class);
             $table->string('gender');
             $table->integer('age_from');
