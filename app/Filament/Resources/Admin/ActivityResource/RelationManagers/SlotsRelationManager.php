@@ -33,7 +33,8 @@ class SlotsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('no_of_slots')
             ])
             ->groups([Group::make('day')
-                ->collapsible(),])
+                ->collapsible(),Group::make('starts_at')
+                ->collapsible()])
             ->filters([
                 //
             ])
