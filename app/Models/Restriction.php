@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Gender;
 use App\Observers\RestrictionObserver;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -16,6 +17,10 @@ class Restriction extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'gender' => Gender::class,
+    ];
+
     public function slot(): BelongsTo
     {
         return $this->belongsTo(Slot::class);
@@ -28,12 +33,13 @@ class Restriction extends Model
                 ->hidden(function () use ($slot_id) {
                     return $slot_id != NULL;
                 })
-                ->hiddenOn(['create','edit'])
+                ->hiddenOn(['create', 'edit'])
                 ->relationship('slot', 'id')
                 ->required(),
-            TextInput::make('gender')
-                ->required()
-                ->maxLength(255),
+            Select::make('gender')
+                ->options(Gender::class)
+                ->searchable()
+                ->required(),
             TextInput::make('age_from')
                 ->required()
                 ->numeric(),

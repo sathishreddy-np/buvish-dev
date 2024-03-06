@@ -16,7 +16,6 @@ enum Day: string implements HasLabel
 
     public function getLabel(): ?string
     {
-
         return match ($this) {
             self::Monday => 'Monday',
             self::Tuesday => 'Tuesday',

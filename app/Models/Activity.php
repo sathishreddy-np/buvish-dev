@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\Activity as EnumsActivity;
 use App\Observers\ActivityObserver;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Activity extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'name' => EnumsActivity::class,
+    ];
 
     public function branch(): BelongsTo
     {
@@ -29,9 +34,11 @@ class Activity extends Model
     public static function getForm(): array
     {
         return [
-            TextInput::make('name')
-                ->required()
-                ->maxLength(255),
+            Select::make('name')
+                ->options(EnumsActivity::class)
+                ->searchable()
+                ->unique()
+                ->required(),
             Repeater::make('slots')
                 ->hiddenOn(['view','edit'])
                 ->relationship('slots')

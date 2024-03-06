@@ -8,6 +8,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -27,8 +28,12 @@ class SlotsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('day')
             ->columns([
-                Tables\Columns\TextColumn::make('day'),
+                Tables\Columns\TextColumn::make('starts_at'),
+                Tables\Columns\TextColumn::make('ends_at'),
+                Tables\Columns\TextColumn::make('no_of_slots')
             ])
+            ->groups([Group::make('day')
+                ->collapsible(),])
             ->filters([
                 //
             ])

@@ -58,6 +58,7 @@ class Slot extends Model
                 ->required()
                 ->numeric(),
             Repeater::make('restrictions')
+                ->hiddenOn(['view', 'edit'])
                 ->relationship('restrictions')
                 ->schema(Restriction::getForm())
                 ->columnSpanFull()

@@ -6,7 +6,6 @@ use Filament\Support\Contracts\HasLabel;
 
 enum Currency: string implements HasLabel
 {
-
     case USD = 'USD'; // United States Dollar
     case EUR = 'EUR'; // Euro
     case GBP = 'GBP'; // British Pound Sterling
@@ -17,7 +16,6 @@ enum Currency: string implements HasLabel
 
     public function getLabel(): ?string
     {
-
         return match ($this) {
             self::USD => 'USD',
             self::EUR => 'EUR',
