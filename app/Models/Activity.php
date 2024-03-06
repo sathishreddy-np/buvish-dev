@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\Activity as EnumsActivity;
 use App\Observers\ActivityObserver;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,7 +35,9 @@ class Activity extends Model
     public static function getForm(): array
     {
         return [
-            Select::make('name')
+            Section::make()
+            ->schema([
+                Select::make('name')
                 ->options(EnumsActivity::class)
                 ->searchable()
                 ->unique()
@@ -43,7 +46,9 @@ class Activity extends Model
                 ->hiddenOn(['view','edit'])
                 ->relationship('slots')
                 ->schema(Slot::getForm())
-                ->columnSpanFull()
+                ->columns(4)
+            ])
+            ->columnSpanFull()
 
         ];
     }

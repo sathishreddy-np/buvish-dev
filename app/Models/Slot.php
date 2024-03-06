@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\Day;
 use App\Observers\SlotObserver;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
