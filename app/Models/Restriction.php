@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\Gender;
 use App\Observers\RestrictionObserver;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -29,7 +30,9 @@ class Restriction extends Model
     public static function getForm($slot_id = NULL): array
     {
         return [
-            Select::make('slot_id')
+            Section::make()
+            ->schema([
+                Select::make('slot_id')
                 ->hidden(function () use ($slot_id) {
                     return $slot_id != NULL;
                 })
@@ -50,6 +53,9 @@ class Restriction extends Model
                 ->required()
                 ->numeric()
                 ->prefix('$'),
+
+            ])
+            ->columns(4)
         ];
     }
 }

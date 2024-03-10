@@ -46,8 +46,7 @@ class Activity extends Model
                 ->relationship('slots')
                 ->schema(Slot::getForm())
                 ->columnSpanFull()
-
-
+                ->collapsible()
         ];
     }
 }

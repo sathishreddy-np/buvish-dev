@@ -64,7 +64,9 @@ class Slot extends Model
             Repeater::make('restrictions')
                 ->relationship('restrictions')
                 ->schema(Restriction::getForm())
-                ->columns(4)
+                ->columnSpanFull()
+                ->collapsible()
+
         ];
     }
 }
