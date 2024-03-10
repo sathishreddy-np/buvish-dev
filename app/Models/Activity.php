@@ -35,20 +35,18 @@ class Activity extends Model
     public static function getForm(): array
     {
         return [
-            Section::make()
-            ->schema([
-                Select::make('name')
+
+            Select::make('name')
                 ->options(EnumsActivity::class)
                 ->searchable()
                 ->unique()
                 ->required(),
             Repeater::make('slots')
-                ->hiddenOn(['view','edit'])
+                ->hiddenOn(['view', 'edit'])
                 ->relationship('slots')
                 ->schema(Slot::getForm())
-                ->columns(4)
-            ])
-            ->columnSpanFull()
+                ->columnSpanFull()
+
 
         ];
     }

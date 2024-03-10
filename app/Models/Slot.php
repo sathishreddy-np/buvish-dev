@@ -40,28 +40,31 @@ class Slot extends Model
     public static function getForm($activity_id = NULL): array
     {
         return [
-            Select::make('activity_id')
-                ->hidden(function () use ($activity_id) {
-                    return $activity_id != NULL;
-                })
-                ->hiddenOn(['create', 'edit'])
-                ->relationship('activity', 'id')
-                ->required(),
-            Select::make('day')
-                ->options(Day::class)
-                ->searchable()
-                ->required(),
-            TimePicker::make('starts_at')
-                ->required(),
-            TimePicker::make('ends_at')
-                ->required(),
-            TextInput::make('no_of_slots')
-                ->required()
-                ->numeric(),
+            Section::make()
+                ->schema([
+                    Select::make('activity_id')
+                        ->hidden(function () use ($activity_id) {
+                            return $activity_id != NULL;
+                        })
+                        ->hiddenOn(['create', 'edit'])
+                        ->relationship('activity', 'id')
+                        ->required(),
+                    Select::make('day')
+                        ->options(Day::class)
+                        ->searchable()
+                        ->required(),
+                    TimePicker::make('starts_at')
+                        ->required(),
+                    TimePicker::make('ends_at')
+                        ->required(),
+                    TextInput::make('no_of_slots')
+                        ->required()
+                        ->numeric(),
+                ])->columns(4),
             Repeater::make('restrictions')
                 ->relationship('restrictions')
                 ->schema(Restriction::getForm())
-                ->columnSpanFull()
+                ->columns(4)
         ];
     }
 }

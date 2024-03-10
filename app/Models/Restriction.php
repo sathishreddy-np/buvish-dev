@@ -46,9 +46,6 @@ class Restriction extends Model
             TextInput::make('age_to')
                 ->required()
                 ->numeric(),
-            TextInput::make('currency')
-                ->required()
-                ->maxLength(255),
             TextInput::make('price')
                 ->required()
                 ->numeric()
