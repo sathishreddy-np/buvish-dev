@@ -11,7 +11,9 @@ class RoleObserver
      */
     public function creating(Role $role): void
     {
-        $role->company_id = auth()->user()->company_id;
+        if(auth()->user()){
+            $role->company_id = auth()->user()->company_id;
+        }
     }
 
     /**

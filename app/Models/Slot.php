@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\Day;
+use App\Enums\Timing;
 use App\Observers\SlotObserver;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
@@ -53,6 +54,10 @@ class Slot extends Model
                         ->options(Day::class)
                         ->searchable()
                         ->required(),
+                    Select::make('timing')
+                        ->options(Timing::class)
+                        ->searchable()
+                        ->required(),
                     TimePicker::make('starts_at')
                         ->required(),
                     TimePicker::make('ends_at')
@@ -60,12 +65,13 @@ class Slot extends Model
                     TextInput::make('no_of_slots')
                         ->required()
                         ->numeric(),
-                ])->columns(4),
+                ])->columns(5),
             Repeater::make('restrictions')
                 ->relationship('restrictions')
                 ->schema(Restriction::getForm())
                 ->columnSpanFull()
                 ->collapsible()
+                ->cloneable()
 
         ];
     }

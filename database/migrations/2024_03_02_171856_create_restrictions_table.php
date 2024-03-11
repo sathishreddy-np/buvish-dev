@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('gender');
             $table->integer('age_from');
             $table->integer('age_to');
-            $table->string('currency');
             $table->integer('price');
             $table->timestamps();
         });

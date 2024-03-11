@@ -12,7 +12,7 @@ class UserObserver
      */
     public function creating(User $user): void
     {
-        $company_id = auth()->user()->company_id ?? Company::create(['name' => 'Main Branch'])->id;
+        $company_id = auth()->user()->company_id ?? Company::create(['name' => 'Head Quaters'])->id;
         $user->company_id = $company_id;
     }
 

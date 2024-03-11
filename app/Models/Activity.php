@@ -35,7 +35,6 @@ class Activity extends Model
     public static function getForm(): array
     {
         return [
-
             Select::make('name')
                 ->options(EnumsActivity::class)
                 ->searchable()
@@ -47,6 +46,7 @@ class Activity extends Model
                 ->schema(Slot::getForm())
                 ->columnSpanFull()
                 ->collapsible()
+                ->cloneable()
         ];
     }
 }
